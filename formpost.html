@@ -1,14 +1,27 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <title>Form POST</title>
+  <meta charset="UTF-8">
+  <title>Form Pendaftaran Anggota</title>
 </head>
 <body>
-    <h2>Form Menggunakan POST</h2>
-    <form method="POST" action="proses-post.php">
-        Nama: <input type="text" name="nama">
-        <button type="submit">Kirim</button>
-    </form>
+  <h1>Pendaftaran Anggota</h1>
+  <form action="proses-daftar.php" method="POST">
+    <label for="nama">Nama Lengkap:</label><br>
+    <input type="text" name="nama" id="nama" required><br><br>
+
+    <label for="usia">Usia:</label><br>
+    <input type="number" name="usia" id="usia" min="1" required><br><br>
+
+    <label for="email">Email:</label><br>
+    <input type="email" name="email" id="email" required><br><br>
+
+    <label>Tipe Keanggotaan:</label><br>
+    <input type="radio" name="tipe" value="Pelajar" required> Pelajar<br>
+    <input type="radio" name="tipe" value="Mahasiswa" required> Mahasiswa<br>
+    <input type="radio" name="tipe" value="Umum" required> Umum<br><br>
+
+    <button type="submit">Daftar</button>
+  </form>
 </body>
 </html>
