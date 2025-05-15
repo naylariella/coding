@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kedai Kopi Digital Code Hub</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <link href="https://fonts.cdnfonts.com/css/poppins" rel="stylesheet" />
+</head>
+<body>
+  <header>
+    <div class="navigation">
+      <input type="checkbox" id="check" />
+      <label for="check" class="check_btn"><i class="fas fa-bars"></i></label>
+      <label class="logo">DIGITAL CODE HUB</label>
+      <ul>
+        <li><a href="#" onclick="showPage('home')">Home</a></li>
+        <li><a href="#" onclick="showPage('dashboard')">Dashboard</a></li>
+        <li><button class="btnLogin-popup" onclick="showLogin()">Login</button></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- Home Page -->
+  <div id="home" class="page" style="display:none;">
+    <h1>Selamat datang di Digital Code Hub</h1>
+    <p>Kedai kopi dengan cita rasa yang menyentuh hati.</p>
+    <blockquote>"Kopi adalah seni, bukan hanya minuman."</blockquote>
+    <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=800&q=80" alt="Banner kopi" class="banner" />
+    <h2>Menu Unggulan</h2>
+    <ul class="menu-list">
+      <li>Espresso</li>
+      <li>Cappuccino</li>
+      <li>Latte</li>
+      <li>Americano</li>
+      <li>Mocha</li>
+    </ul>
+    <button class="btnLogin-popup" onclick="showLogin()">Login</button>
+  </div>
+
+  <!-- Dashboard Page -->
+  <div id="dashboard" class="page" style="display:none;">
+    <h1>Dashboard</h1>
+    <div class="coffee-menu">
+      <div class="coffee-item">
+        <img src="https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&w=200&q=80" alt="Espresso" />
+        <p>Espresso</p>
+        <button class="add-order">Tambah Pesanan</button>
+      </div>
+      <div class="coffee-item">
+        <img src="https://images.unsplash.com/photo-1528825871115-3581a5387919?auto=format&fit=crop&w=200&q=80" alt="Cappuccino" />
+        <p>Cappuccino</p>
+        <button class="add-order">Tambah Pesanan</button>
+      </div>
+      <!-- Tambah item lainnya sesuai kebutuhan -->
+    </div>
+
+    <button id="submitOrder">Submit Pesanan</button>
+    <h3>Riwayat Pemesanan</h3>
+    <ul id="orderHistory"></ul>
+  </div>
+
+  <!-- Login/Register Popup -->
+  <div id="login-register-popup" class="cover-box" style="display:none;">
+    <span class="icon-close" onclick="hideLogin()">&times;</span>
+
+    <!-- Login form -->
+    <div class="form-box login">
+      <h2>Login</h2>
+      <form id="loginForm">
+        <div class="input-box">
+          <span class="icon"><i class="fas fa-envelope"></i></span>
+          <input type="email" id="loginEmail" required />
+          <label>Email</label>
+        </div>
+        <div class="input-box">
+          <span class="icon"><i class="fas fa-lock"></i></span>
+          <input type="password" id="loginPassword" required />
+          <label>Password</label>
+        </div>
+        <div class="remember-forget">
+          <label><input type="checkbox" /> Remember me</label>
+          <a href="#">Forgot password?</a>
+        </div>
+        <button type="submit" class="btn">Login</button>
+        <div class="login-register">
+          <p>Don't have an account? <a href="#" onclick="showRegister()">Register</a></p>
+        </div>
+      </form>
+    </div>
+
+    <!-- Register form -->
+    <div class="form-box register" style="display:none;">
+      <h2>Register</h2>
+      <form id="registerForm">
+        <div class="input-box">
+          <span class="icon"><i class="fas fa-user"></i></span>
+          <input type="text" id="registerUsername" required />
+          <label>Username</label>
+        </div>
+        <div class="input-box">
+          <span class="icon"><i class="fas fa-envelope"></i></span>
+          <input type="email" id="registerEmail" required />
+          <label>Email</label>
+        </div>
+        <div class="input-box">
+          <span class="icon"><i class="fas fa-lock"></i></span>
+          <input type="password" id="registerPassword" required />
+          <label>Password</label>
+        </div>
+        <div class="remember-forgot">
+          <label><input type="checkbox" required /> Agree to terms & conditions</label>
+        </div>
+        <button type="submit" class="btn">Register</button>
+        <div class="login-register">
+          <p>Already have an account? <a href="#" onclick="showLogin()">Login</a></p>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-content">
+      <p>&copy; 2025 Digital Code Hub. All rights reserved.</p>
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-linkedin"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
