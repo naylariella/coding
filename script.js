@@ -1,26 +1,35 @@
-const cover_box = document.querySelector('.cover_box');
-const loginLink = document.querySelector('.login-link');
-const registerLink = document.querySelector('.register-link');
-const btnPopup = document.querySelector('.btnLogin-popup');
-const iconClose = document.querySelector('.icon-close');
+const coverBox = document.querySelector('.cover_box');
+const loginForm = document.querySelector('.form-box.login');
+const registerForm = document.querySelector('.form-box.register');
+const loginBtn = document.querySelector('.btnLogin-popup');
+const closeBtn = document.getElementById('closeBtn');
+const registerLink = document.getElementById('toRegister');
+const loginLink = document.getElementById('toLogin');
 
-function activateCoverBox() {
-    cover_box.classList.add('active');
-}
+loginBtn.addEventListener('click', () => {
+    coverBox.classList.add('active-popup'); // tampilkan dengan animasi
+    coverBox.classList.remove('active'); // pastikan form login aktif
+    loginForm.style.display = 'block';
+    registerForm.style.display = 'none';
+});
 
-function deactivateCoverBox() {
-    cover_box.classList.remove('active');
-}
+registerLink.addEventListener('click', (e) => {
+  e.preventDefault();
+  coverBox.classList.add('active-popup', 'active'); // tampilkan + form register aktif
+    loginForm.style.display = 'none';
+    registerForm.style.display = 'block';
+});
 
-function activatePopup() {
-    cover_box.classList.add('active-popup');
-}
+loginLink.addEventListener('click', (e) => {
+    e.preventDefault();
+    coverBox.classList.remove('active'); // kembali ke form login
+    loginForm.style.display = 'block';
+    registerForm.style.display = 'none';
+});
 
-function deactivatePopup() {
-    cover_box.classList.remove('active-popup');
-}
-
-registerLink.addEventListener('click', activateCoverBox);
-loginLink.addEventListener('click', deactivateCoverBox);
-btnPopup.addEventListener('click', activatePopup);
-iconClose.addEventListener('click', deactivatePopup);
+closeBtn.addEventListener('click', () => {
+    coverBox.classList.remove('active-popup');
+    coverBox.classList.remove('active');
+    loginForm.style.display = 'block';
+    registerForm.style.display = 'none';
+});
