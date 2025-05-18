@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="id" >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>COFFEEIN - Login/Register</title>
+  <link href="https://fonts.cdnfonts.com/css/poppins" rel="stylesheet" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+  />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background-image: url('https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=1470&q=80');
+      background-size: cover;
+      background-position: center;
+      min-height: 100vh;
+      overflow-x: hidden;
+      color: #e0c097;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+      background-blend-mode: multiply;
+      background-repeat: no-repeat;
+    }
+
+    /* overlay gelap coklat seperti halaman home */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(44, 32, 17, 0.95);
+      z-index: -1;
+    }
+
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      background-color: rgba(44, 32, 17, 0.95);
+      padding: 15px 30px;
+      font-weight: bold;
+      font-size: 1.5rem;
+      color: #e0c097;
+      user-select: none;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header .logo {
+      user-select: none;
+      letter-spacing: 2px;
+    }
+
+    header nav {
+      display: flex;
+      gap: 20px;
+    }
+
+    header nav a {
+      color: #e0c097;
+      text-decoration: none;
+      font-weight: 600;
+      text-transform: uppercase;
+      padding: 7px 15px;
+      border: 2px solid transparent;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+    }
+
+    header nav a:hover,
+    header nav a.active {
+      background-color: #7b5734;
+      border-color: #e0c097;
+      box-shadow: 0 0 8px #e0c097;
+    }
+
+    /* popup login/register box */
+    .cover_box {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: 400px;
+      max-width: 90vw;
+      background: rgba(44, 32, 17, 0.85);
+      border-radius: 15px;
+      box-shadow: 0 0 20px #7b5734;
+      padding: 30px;
+      transform: translate(-50%, -50%) scale(0.8);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 0.4s ease, opacity 0.4s ease;
+      z-index: 1000;
+      color: #e0c097;
+    }
+
+    .cover_box.active-popup {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+      pointer-events: auto;
+    }
+
+    .icon-close {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      font-size: 1.8em;
+      color: #e0c097;
+      cursor: pointer;
+      user-select: none;
+      background: transparent;
+      border-radius: 50%;
+      transition: color 0.3s ease;
+    }
+    .icon-close:hover {
+      color: #7b5734;
+    }
+
+    .form-box {
+      font-weight: 600;
+      color: #e0c097;
+    }
+
+    .form-box h2 {
+      font-size: 2rem;
+      margin-bottom: 25px;
+      letter-spacing: 1px;
+      text-shadow: 1px 1px 3px #000;
+    }
+
+    .input-box {
+      position: relative;
+      width: 100%;
+      margin-bottom: 25px;
+    }
+
+    .input-box input {
+      width: 100%;
+      padding: 12px 40px 12px 12px;
+      background: transparent;
+      border: 1.8px solid #7b5734;
+      border-radius: 10px;
+      color: #e0c097;
+      font-size: 1rem;
+      font-weight: 600;
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+    .input-box input:focus {
+      border-color: #e0c097;
+    }
+    .input-box label {
+      position: absolute;
+      top: 50%;
+      left: 12px;
+      transform: translateY(-50%);
+      color: #a88a5f;
+      pointer-events: none;
+      transition: 0.3s ease;
+      font-weight: 500;
+    }
+    .input-box input:focus + label,
+    .input-box input:valid + label {
+      top: -10px;
+      font-size: 0.85rem;
+      color: #e0c097;
+    }
+
+    .input-box .icon {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #7b5734;
+      font-size: 1.3rem;
+    }
+
+    .remember-forgot {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #a88a5f;
+      margin-bottom: 25px;
+    }
+
+    .remember-forgot label input {
+      accent-color: #e0c097;
+      margin-right: 5px;
+      cursor: pointer;
+    }
+
+    .remember-forgot a {
+      color: #e0c097;
+      text-decoration: underline;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+    .remember-forgot a:hover {
+      color: #7b5734;
+      text-decoration: none;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 12px 0;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #28190a;
+      background-color: #7b5734;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 0 15px #7b5734;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .btn:hover,
+    .btn:focus {
+      background-color: #5a3e24;
+      box-shadow: 0 0 20px #d9b382;
+      outline: none;
+    }
+
+    .login-register {
+      margin-top: 20px;
+      font-weight: 500;
+      font-size: 0.9rem;
+      color: #a88a5f;
+    }
+
+    .login-register a {
+      color: #e0c097;
+      text-decoration: none;
+      font-weight: 600;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+    .login-register a:hover {
+      color: #7b5734;
+      text-decoration: underline;
+    }
+
+    @media (max-width: 480px) {
+      .cover_box {
+        width: 90vw;
+        padding: 20px;
+      }
+      header {
+        padding: 15px 20px;
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">COFFEEIN</div>
+    <nav>
+      <a href="home.html">Home</a>
+      <a href="login.html" class="active">Login</a>
+    </nav>
+  </header>
+
+  <div class="cover_box active-popup">
+    <div id="closeBtn" class="icon-close">&times;</div>
+
+    <div class="form-box login">
+      <h2>Login</h2>
+      <form>
+        <div class="input-box">
+          <input type="text" required />
+          <label>Username</label>
+          <i class="fas fa-user icon"></i>
+        </div>
+        <div class="input-box">
+          <input type="password" required />
+          <label>Password</label>
+          <i class="fas fa-lock icon"></i>
+        </div>
+        <div class="remember-forgot">
+          <label><input type="checkbox" /> Remember me</label>
+          <a href="#">Forgot Password?</a>
+        </div>
+        <button type="submit" class="btn">Login</button>
+        <div class="login-register">
+          <p>
+            Don't have an account? <a href="#" id="toRegister">Register</a>
+          </p>
+        </div>
+      </form>
+    </div>
+
+    <div class="form-box register">
+      <h2>Register</h2>
+      <form>
+        <div class="input-box">
+          <input type="text" required />
+          <label>Username</label>
+          <i class="fas fa-user icon"></i>
+        </div>
+        <div class="input-box">
+          <input type="email" required />
+          <label>Email</label>
+          <i class="fas fa-envelope icon"></i>
+        </div>
+        <div class="input-box">
+          <input type="password" required />
+          <label>Password</label>
+          <i class="fas fa-lock icon"></i>
+        </div>
+        <div class="input-box">
+          <input type="password" required />
+          <label>Confirm Password</label>
+          <i class="fas fa-lock icon"></i>
+        </div>
+        <button type="submit" class="btn">Register</button>
+        <div class="login-register">
+          <p>
+            Already have an account? <a href="#" id="toLogin">Login</a>
+          </p>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const coverBox = document.querySelector('.cover_box');
+    const loginBtn = document.querySelector('.btnLogin-popup');
+    const closeBtn = document.getElementById('closeBtn');
+
+    const loginForm = document.querySelector('.form-box.login');
+    const registerForm = document.querySelector('.form-box.register');
+    const toRegister = document.getElementById('toRegister');
+    const toLogin = document.getElementById('toLogin');
+
+    closeBtn.addEventListener('click', () => {
+      coverBox.classList.remove('active-popup');
+    });
+
+    toRegister.addEventListener('click', (e) => {
+      e.preventDefault();
+      loginForm.style.display = 'none';
+      registerForm.style.display = 'block';
+    });
+
+    toLogin.addEventListener('click', (e) => {
+      e.preventDefault();
+      registerForm.style.display = 'none';
+      loginForm.style.display = 'block';
+    });
+
+    // Initialize
+    registerForm.style.display = 'none';
+    loginForm.style.display = 'block';
+  </script>
+</body>
+</html>
