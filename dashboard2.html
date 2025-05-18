@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DCOFFEEIN - Daftar Kopi</title>
+  <link href="https://fonts.cdnfonts.com/css/poppins" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    body {
+      background: #1C110A;
+      color: #f3d1a1;
+      min-height: 100vh;
+      padding: 20px;
+      overflow-x: hidden;
+    }
+    header {
+      background-color: rgba(40, 26, 20, 0.95);
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      font-weight: bold;
+      font-size: 1.4rem;
+      color: #f3d1a1;
+      box-shadow: 0 2px 10px rgba(80, 50, 30, 0.6);
+    }
+    header .logo {
+      color: #f3d1a1;
+    }
+    .cart-icon {
+      position: relative;
+      cursor: pointer;
+      font-size: 1.8rem;
+      color: #f3d1a1;
+      transition: transform 0.3s ease;
+    }
+    .cart-icon.bounce {
+      animation: bounce 0.5s;
+    }
+    @keyframes bounce {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.3);
+      }
+    }
+    .cart-count {
+      position: absolute;
+      top: -8px;
+      right: -10px;
+      background: #D84315;
+      color: white;
+      border-radius: 50%;
+      font-size: 0.75rem;
+      padding: 2px 6px;
+      font-weight: bold;
+      box-shadow: 0 0 5px #D84315;
+    }
+    main {
+      margin-top: 90px;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeSlideUp 0.8s forwards;
+    }
+    @keyframes fadeSlideUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    h1 {
+      margin-bottom: 30px;
+      text-align: center;
+      font-size: 2.5rem;
+      color: #f3d1a1;
+      text-shadow: 0 0 10px #5e4033;
+    }
+    .coffee-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill,minmax(250px,1fr));
+      gap: 25px;
+    }
+    .coffee-card {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 0 15px rgba(83, 52, 32, 0.4);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+    }
+    .coffee-card:hover {
+      transform: scale(1.04);
+      box-shadow: 0 0 20px rgba(243, 209, 161, 0.4);
+    }
+    .coffee-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      display: block;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .coffee-info {
+      padding: 15px 20px;
+    }
+    .coffee-info h3 {
+      font-size: 1.3rem;
+      margin-bottom: 8px;
+      color: #f3d1a1;
+    }
+    .coffee-info p {
+      font-size: 1rem;
+      color: #d7ccc8;
+      margin-bottom: 12px;
+      min-height: 48px;
+    }
+    .coffee-info .price {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: #D7A86E;
+    }
+    .add-button {
+      position: absolute;
+      bottom: 15px;
+      right: 15px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: #3E2723;
+      color: white;
+      border: 2px solid #D7A86E;
+      font-size: 1.4em;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 0 6px #D7A86E;
+    }
+    .add-button:hover {
+      background-color: #D7A86E;
+      color: #3E2723;
+      transform: scale(1.1);
+      box-shadow: 0 0 12px #D7A86E;
+    }
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #4E342E;
+      color: #f3d1a1;
+      padding: 12px 25px;
+      border-radius: 8px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      z-index: 999;
+      font-weight: 600;
+      box-shadow: 0 0 12px rgba(255, 244, 230, 0.2);
+    }
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    COFFEEIN
+    <a href="keranjang.html" class="cart-icon" id="cartIcon" aria-label="Keranjang">
+      🛒 <span class="cart-count" id="cartCount" aria-live="polite">0</span>
+    </a>
+  </header>
+  <main>
+    <h1>Daftar Kopi Favorit</h1>
+    <div class="coffee-list" id="coffeeList" role="list"></div>
+  </main>
+  <div class="toast" id="toast" role="alert" aria-atomic="true">Kopi ditambahkan ke keranjang!</div>
+
+  <script>
+    const coffeeData = [
+      {
+        name: "Espresso",
+        price: 15000,
+        description: "Kopi hitam pekat dengan rasa kuat dan aroma tajam.",
+        img: "https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&w=400&q=80"
+      },
+      {
+        name: "Cappuccino",
+        price: 20000,
+        description: "Kopi dengan busa susu lembut dan cita rasa creamy.",
+        img: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=400&q=80"
+      },
+      {
+        name: "Latte",
+        price: 22000,
+        description: "Kopi dengan campuran susu panas yang lembut dan manis.",
+        img: "https://images.unsplash.com/photo-1528825871115-3581a5387919?auto=format&fit=crop&w=400&q=80"
+      },
+      {
+        name: "Americano",
+        price: 18000,
+        description: "Kopi hitam yang lebih encer dengan rasa halus dan ringan.",
+        img: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=400&q=80"
+      },
+      {
+        name: "Mocha",
+        price: 25000,
+        description: "Kopi dengan campuran cokelat manis dan susu yang lezat.",
+        img: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80"
+      },
+      {
+        name: "Affogato",
+        price: 28000,
+        description: "Espresso panas dituangkan di atas es krim vanila, perpaduan kopi dan manis yang nikmat.",
+        img: "https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=400&q=80"
+      }
+    ];
+
+    const cartKey = 'kopiCart';
+    const cartCount = document.getElementById('cartCount');
+    const coffeeList = document.getElementById('coffeeList');
+    const toast = document.getElementById('toast');
+    const cartIcon = document.getElementById('cartIcon');
+
+    function loadCart() {
+      const cart = JSON.parse(localStorage.getItem(cartKey)) || [];
+      cartCount.textContent = cart.length;
+    }
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2000);
+    }
+
+    function animateCartIcon() {
+      cartIcon.classList.add('bounce');
+      setTimeout(() => {
+        cartIcon.classList.remove('bounce');
+      }, 500);
+    }
+
+    function addToCart(item) {
+      const cart = JSON.parse(localStorage.getItem(cartKey)) || [];
+      cart.push(item);
+      localStorage.setItem(cartKey, JSON.stringify(cart));
+      loadCart();
+      animateCartIcon();
+      showToast(`${item.name} ditambahkan ke keranjang!`);
+    }
+
+    function renderCoffees() {
+      coffeeData.forEach(coffee => {
+        const div = document.createElement('div');
+        div.className = 'coffee-card';
+        div.innerHTML = `
+          <img src="${coffee.img}" alt="${coffee.name}" />
+          <div class="coffee-info">
+            <h3>${coffee.name}</h3>
+            <p>${coffee.description}</p>
+            <div class="price">Rp ${coffee.price.toLocaleString('id-ID')}</div>
+          </div>
+          <button class="add-button" aria-label="Tambah ${coffee.name} ke keranjang">+</button>
+        `;
+        const btn = div.querySelector('.add-button');
+        btn.addEventListener('click', () => addToCart(coffee));
+        coffeeList.appendChild(div);
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      loadCart();
+      renderCoffees();
+    });
+  </script>
+</body>
+</html>
