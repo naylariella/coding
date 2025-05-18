@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>COFFEEIN - Home</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+  <link href="https://fonts.cdnfonts.com/css/poppins" rel="stylesheet"/>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    body {
+      background: #1e1a16; /* gelap coklat */
+      color: #e0c097; /* coklat muda */
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      text-align: center;
+      background-image: url('https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=1470&q=80');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-blend-mode: multiply;
+    }
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      background-color: rgba(44, 32, 17, 0.95);
+      padding: 15px 30px;
+      font-weight: bold;
+      font-size: 1.5rem;
+      color: #e0c097;
+      user-select: none;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header .logo {
+      user-select: none;
+      letter-spacing: 2px;
+    }
+    header nav {
+      display: flex;
+      gap: 20px;
+    }
+    header nav a {
+      color: #e0c097;
+      text-decoration: none;
+      font-weight: 600;
+      text-transform: uppercase;
+      padding: 7px 15px;
+      border: 2px solid transparent;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+    }
+    header nav a:hover {
+      background-color: #7b5734;
+      border-color: #e0c097;
+      box-shadow: 0 0 8px #e0c097;
+    }
+    main {
+      max-width: 700px;
+      background-color: rgba(44, 32, 17, 0.85);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px #7b5734;
+      margin-top: 100px;
+
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeSlideUp 0.8s forwards ease-out;
+    }
+    @keyframes fadeSlideUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    h1 {
+      margin-bottom: 20px;
+      font-size: 2.8rem;
+      text-shadow: 1px 1px 3px #000;
+    }
+    p {
+      font-size: 1.2rem;
+      line-height: 1.6;
+      text-shadow: 1px 1px 2px #000;
+      color: #d9b382;
+    }
+    .btn-login {
+      margin-top: 30px;
+      background-color: #7b5734;
+      color: #fff;
+      padding: 12px 30px;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      font-weight: 600;
+      box-shadow: 0 0 15px #7b5734;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-login:hover,
+    .btn-login:focus {
+      background-color: #5a3e24;
+      box-shadow: 0 0 20px #d9b382;
+      outline: none;
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">COFFEEIN</div>
+    <nav>
+      <a href="home.html" class="active">Home</a>
+      <a href="login.html?popup=login">Login</a>
+    </nav>
+  </header>
+  <main>
+    <h1>Selamat Datang di Coffeein!</h1>
+    <p>
+      Halo Sobat Kopi! Lagi pengen ngopi enak? <br/>
+      Di sini tempatnya, kopi keren siap ngisi harimu. <br/>
+      Pesan gampang, langsung nyeruput tanpa ribet. <br/>
+      Ngopi santai, biar vibes kamu makin chill!
+    </p>
+  </main>
+</body>
+</html>
