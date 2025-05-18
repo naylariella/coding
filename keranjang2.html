@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Keranjang Kopi</title>
+  <link href="https://fonts.cdnfonts.com/css/poppins" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: #1C110A;
+      color: #f3d1a1;
+      min-height: 100vh;
+      padding: 20px;
+      overflow-x: hidden;
+    }
+
+    header {
+      background-color: rgba(40, 26, 20, 0.95);
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      font-weight: bold;
+      font-size: 1.4rem;
+      color: #f3d1a1;
+      box-shadow: 0 2px 10px rgba(80, 50, 30, 0.6);
+    }
+
+    .cart-icon {
+      position: relative;
+      cursor: pointer;
+      font-size: 1.8rem;
+      color: #f3d1a1;
+      transition: transform 0.3s ease;
+    }
+
+    .cart-count {
+      position: absolute;
+      top: -8px;
+      right: -10px;
+      background: #D84315;
+      color: white;
+      border-radius: 50%;
+      font-size: 0.75rem;
+      padding: 2px 6px;
+      font-weight: bold;
+      box-shadow: 0 0 5px #D84315;
+    }
+
+    main {
+      margin-top: 90px;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cart-list {
+      margin-top: 20px;
+    }
+
+    .cart-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      margin-bottom: 20px;
+      padding: 15px;
+      box-shadow: 0 0 12px rgba(83, 52, 32, 0.3);
+      position: relative;
+    }
+
+    .cart-item img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-right: 20px;
+      box-shadow: 0 0 8px rgba(215, 168, 110, 0.4);
+    }
+
+    .item-info {
+      flex-grow: 1;
+    }
+
+    .item-info h3 {
+      font-size: 1.2rem;
+      margin-bottom: 6px;
+      color: #f3d1a1;
+    }
+
+    .item-info .price {
+      color: #D7A86E;
+      font-weight: 600;
+    }
+
+    .remove-btn {
+      background: transparent;
+      border: none;
+      color: #e57373;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .remove-btn:hover {
+      transform: scale(1.3);
+      color: #ff4c4c;
+    }
+
+    .total {
+      text-align: right;
+      font-size: 1.4rem;
+      font-weight: bold;
+      color: #D7A86E;
+      margin-top: 30px;
+    }
+
+    .checkout-btn {
+      background-color: #3E2723;
+      color: #f3d1a1;
+      padding: 12px 25px;
+      font-size: 1.1rem;
+      border: 2px solid #D7A86E;
+      border-radius: 8px;
+      cursor: pointer;
+      float: right;
+      margin-top: 20px;
+      font-weight: bold;
+      box-shadow: 0 0 10px #D7A86E;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .checkout-btn:hover {
+      background-color: #D7A86E;
+      color: #3E2723;
+      transform: scale(1.05);
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #4E342E;
+      color: #f3d1a1;
+      padding: 12px 25px;
+      border-radius: 8px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      z-index: 999;
+      font-weight: 600;
+      box-shadow: 0 0 12px rgba(255, 244, 230, 0.2);
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div>COFFEEIN</div>
+    <a href="keranjang.html" class="cart-icon" id="cartIcon" aria-label="Keranjang">
+      🛒 <span class="cart-count" id="cartCount" aria-live="polite">0</span>
+    </a>
+  </header>
+
+  <main>
+    <h1 style="text-align:center; font-size: 2rem; margin-bottom: 30px;">Keranjang Kamu</h1>
+    <div class="cart-list" id="cartList" aria-live="polite"></div>
+    <div class="total" id="totalHarga">Total: Rp 0</div>
+    <button class="checkout-btn" onclick="selesaikanPesanan()">Selesaikan Pesanan</button>
+  </main>
+
+  <div class="toast" id="toast" role="alert" aria-atomic="true">Item dihapus dari keranjang</div>
+
+  <script>
+    const cartKey = 'kopiCart';
+    const cartList = document.getElementById('cartList');
+    const totalHarga = document.getElementById('totalHarga');
+    const cartCount = document.getElementById('cartCount');
+    const toast = document.getElementById('toast');
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2000);
+    }
+
+    function loadCart() {
+      const cart = JSON.parse(localStorage.getItem(cartKey)) || [];
+      cartList.innerHTML = '';
+      cartCount.textContent = cart.length;
+      let total = 0;
+
+      cart.forEach((item, index) => {
+        total += item.price;
+
+        const div = document.createElement('div');
+        div.className = 'cart-item';
+        div.innerHTML = `
+          <img src="${item.img}" alt="${item.name}" />
+          <div class="item-info">
+            <h3>${item.name}</h3>
+            <div class="price">Rp ${item.price.toLocaleString('id-ID')}</div>
+          </div>
+          <button class="remove-btn" title="Hapus item" aria-label="Hapus ${item.name}">🗑️</button>
+        `;
+
+        const removeBtn = div.querySelector('.remove-btn');
+        removeBtn.addEventListener('click', () => {
+          const updatedCart = JSON.parse(localStorage.getItem(cartKey)) || [];
+          updatedCart.splice(index, 1);
+          localStorage.setItem(cartKey, JSON.stringify(updatedCart));
+          loadCart();
+          showToast(`${item.name} dihapus dari keranjang`);
+        });
+
+        cartList.appendChild(div);
+      });
+
+      totalHarga.textContent = `Total: Rp ${total.toLocaleString('id-ID')}`;
+    }
+
+    function selesaikanPesanan() {
+      localStorage.removeItem(cartKey);
+      window.location.href = 'thanks.html';
+    }
+
+    document.addEventListener('DOMContentLoaded', loadCart);
+  </script>
+</body>
+</html>
