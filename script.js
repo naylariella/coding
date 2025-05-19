@@ -1,3 +1,4 @@
+
 const coverBox = document.querySelector('.cover_box');
 const loginForm = document.querySelector('.form-box.login');
 const registerForm = document.querySelector('.form-box.register');
