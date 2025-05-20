@@ -1,6 +1,15 @@
 <?php
 session_start();
 
+// 1. String
+$namaPengguna = "Pelanggan Biblioffee";
+
+// 2. Integer
+$jumlahKopi = 6; // Sesuai jumlah data kopi
+
+// 3a. Indexed Array
+$kopiFavorit = ["Espresso", "Cappuccino", "Latte", "Americano", "Mocha", "Caramel Macchiato"];
+
 // Cek apakah user sudah login berdasarkan session 'email' (sama dengan login.php)
 if (!isset($_SESSION['email'])) {
     // Kalau belum login, redirect ke halaman login
@@ -189,37 +198,37 @@ if (!isset($_SESSION['email'])) {
         name: "Espresso",
         price: 15000,
         description: "Kopi hitam pekat dengan rasa kuat dan aroma tajam.",
-        img: "https://images.unsplash.com/photo-1612198736701-0b30c7e9e6d6?auto=format&fit=crop&w=400&q=80"
+        img: "https://i.imgur.com/mNk4jqN.png"
       },
       {
         name: "Cappuccino",
         price: 20000,
         description: "Kopi dengan busa susu lembut dan cita rasa creamy.",
-        img: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=400&q=80"
+        img: "https://i.imgur.com/Sv3fvpz.png"
       },
       {
         name: "Latte",
         price: 22000,
         description: "Kopi dengan campuran susu panas yang lembut dan manis.",
-        img: "https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&w=400&q=80"
+        img: "https://i.imgur.com/Kk01TGR.png"
       },
       {
         name: "Americano",
         price: 18000,
         description: "Kopi hitam yang lebih encer dengan rasa halus dan ringan.",
-        img: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=400&q=80"
+        img: "https://i.imgur.com/P1i86NO.png"
       },
       {
         name: "Mocha",
         price: 25000,
         description: "Kopi dengan campuran cokelat manis dan susu yang lezat.",
-        img: "https://images.unsplash.com/photo-1515442261605-cd4c7a3eb3c0?auto=format&fit=crop&w=400&q=80"
+        img: "https://i.imgur.com/WFSRQhO.png"
       },
       {
         name: "Caramel Macchiato",
         price: 27000,
         description: "Kopi creamy dengan lapisan karamel manis di atasnya.",
-        img: "https://images.unsplash.com/photo-1603727721114-3b3f7fd85b98?auto=format&fit=crop&w=400&q=80"
+        img: "https://i.imgur.com/V6tbmCm.png"
       }
     ];
 
