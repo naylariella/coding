@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Keranjang Kopi</title>
+  <title>Biblioffee - Keranjang Kopi</title>
   <link href="https://fonts.cdnfonts.com/css/poppins" rel="stylesheet" />
   <style>
     body {
@@ -289,10 +289,30 @@
         return;
       }
 
-      alert(`Terima kasih atas rating ${selectedRating} bintang dan ulasan:\n"${reviewText.value.trim()}"`);
-      selectedRating = 0;
-      highlightStars(0);
-      reviewText.value = '';
+      fetch('submit_review.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          rating: selectedRating,
+          review: reviewText.value.trim()
+        })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          alert(`Terima kasih atas rating ${selectedRating} bintang dan ulasan:\n"${reviewText.value.trim()}"`);
+          selectedRating = 0;
+          highlightStars(0);
+          reviewText.value = '';
+        } else {
+          alert('Gagal mengirim ulasan: ' + data.message);
+        }
+      })
+      .catch(err => {
+        alert('Terjadi kesalahan: ' + err.message);
+      });
     });
   </script>
 </body>
