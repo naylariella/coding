@@ -1,0 +1,9 @@
+CREATE TABLE riwayat_pesan ( 
+  id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  user_id INT(11) NOT NULL,           
+  nama_menu VARCHAR(100) NOT NULL,    
+  harga INT(11) NOT NULL,               
+  jumlah INT(11) NOT NULL,              
+  total INT(11) NOT NULL,             
+  tanggal TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
