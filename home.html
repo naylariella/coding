@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -43,6 +43,21 @@
       border-radius: 15px;
       box-shadow: 0 0 20px #d9dbd5;
       margin-top: 100px;
+
+      /* Animasi fade-in slide-up */
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 0.7s ease forwards;
+    }
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
     h1 {
       margin-bottom: 20px;
@@ -72,16 +87,16 @@
     .btn-login:hover {
       background-color: #88cad6;
     }
-</style>
+  </style>
 </head>
 <body>
   <header>BIBLIOFFEE</header>
   <main>
-  <h1>Secangkir Cerita, Sepenuh Rasa</h1>
-  <p>
-    Selamat datang di BIBLIOFFEE, tempat di mana setiap tegukan kopi bukan sekadar minuman, tapi perjalanan rasa, momen refleksi, dan percakapan hangat.  
-  </p>
-  <a href="login.html?popup=login" class="btn-login">Nikmati Sekarang</a>
+    <h1>Secangkir Cerita, Sepenuh Rasa</h1>
+    <p>
+      Selamat datang di BIBLIOFFEE, tempat di mana setiap tegukan kopi bukan sekadar minuman, tapi perjalanan rasa, momen refleksi, dan percakapan hangat.  
+    </p>
+    <a href="login.html?popup=login" class="btn-login">Nikmati Sekarang</a>
   </main>
 </body>
 </html>
