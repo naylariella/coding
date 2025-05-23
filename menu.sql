@@ -1,3 +1,14 @@
+CREATE TABLE `menu` (
+  `id` int(11) NOT NULL,
+  `nama_menu` varchar(100) NOT NULL,
+  `harga` int(11) NOT NULL,
+  `deskripsi` text DEFAULT NULL,
+  `gambar` varchar(255) DEFAULT NULL
+);
+
+
+
+
 INSERT INTO `menu` (`id`, `nama_menu`, `harga`, `deskripsi`, `gambar`) VALUES
 (1, 'Espresso', 15000, 'Kopi hitam pekat dengan rasa kuat dan aroma tajam', 'https://i.imgur.com/mNk4jqN.png'),
 (2, 'Cappuccino', 20000, 'Kopi dengan busa susu lembut dan cita rasa creamy', 'https://i.imgur.com/Sv3fvpz.png'),
