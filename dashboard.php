@@ -188,7 +188,7 @@ if (!isset($_SESSION['email'])) {
       </div>
   </header>      
   <main>
-    <h1>Daftar Kopi Favorit</h1>
+    <h1>Menu Kopi</h1>
     <div class="coffee-list" id="coffeeList"></div>
   </main>
   <div class="toast" id="toast">Kopi ditambahkan ke keranjang!</div>
