@@ -18,6 +18,7 @@ if (!isset($_SESSION['email'])) {
 }
 ?>
 
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -26,7 +27,6 @@ if (!isset($_SESSION['email'])) {
   <title>Biblioffee - Dashboard</title>
   <link href="https://fonts.cdnfonts.com/css/poppins" rel="stylesheet" />
   <style>
-    /* --- CSS kamu tetap sama --- */
     * {
       margin: 0;
       padding: 0;
@@ -40,12 +40,11 @@ if (!isset($_SESSION['email'])) {
       padding: 20px;
     }
     header {
-      background-color: rgba(88, 82, 53, 0.9);
+      background-color: #805c44;
       padding: 15px 30px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      user-select: none;
       position: fixed;
       top: 0;
       left: 0;
@@ -53,9 +52,6 @@ if (!isset($_SESSION['email'])) {
       z-index: 100;
       font-weight: bold;
       font-size: 1.4rem;
-    }
-    header .logo {
-      color: #fff;
     }
     .cart-icon {
       position: relative;
@@ -72,10 +68,11 @@ if (!isset($_SESSION['email'])) {
       padding: 2px 6px;
     }
     main {
-      margin-top: 80px;
+      margin-top: 90px;
       max-width: 900px;
       margin-left: auto;
       margin-right: auto;
+      padding-bottom: 120px;
     }
     h1 {
       margin-bottom: 30px;
@@ -86,17 +83,29 @@ if (!isset($_SESSION['email'])) {
     }
     .coffee-list {
       display: grid;
-      grid-template-columns: repeat(auto-fill,minmax(250px,1fr));
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
       gap: 25px;
     }
     .coffee-card {
-      background: rgba(255 255 255 / 0.1);
+      background: rgba(255, 255, 255, 0.1);
       border-radius: 15px;
       overflow: hidden;
       box-shadow: 0 0 15px rgba(78, 129, 105, 0.9);
       transition: transform 0.3s ease;
-      cursor: default;
       position: relative;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.5s forwards;
+    }
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
     .coffee-card:hover {
       transform: scale(1.05);
@@ -107,10 +116,11 @@ if (!isset($_SESSION['email'])) {
       height: 180px;
       object-fit: cover;
       display: block;
-      pointer-events: none;
     }
     .coffee-info {
-      padding: 15px 20px;
+      padding: 15px 20px 60px;
+      position: relative;
+      z-index: 1;
     }
     .coffee-info h3 {
       font-size: 1.3rem;
@@ -140,7 +150,7 @@ if (!isset($_SESSION['email'])) {
       font-size: 1.4em;
       font-weight: bold;
       cursor: pointer;
-      transition: background-color 0.3s ease;
+      z-index: 10;
     }
     .add-button:hover {
       background-color: #9c8394;
@@ -161,34 +171,20 @@ if (!isset($_SESSION['email'])) {
       opacity: 1;
       bottom: 40px;
     }
-    .logout-btn {
-      background: #c94f4f;
-      color: white;
-      padding: 6px 12px;
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 0.9rem;
-      transition: background-color 0.3s ease;
-    }
-    .logout-btn:hover {
-      background-color: #a83f3f;
-    }
   </style>
 </head>
 <body>
   <header>
-      <div class="logo">BIBLIOFFEE</div>
-      <div>
-        <a href="keranjang.html" class="cart-icon" id="cartIcon">
-          🛒 <span class="cart-count" id="cartCount">0</span>
-        </a>
-        &nbsp;&nbsp;
-        <a href="logout.php" class="logout-btn">Logout</a>
-      </div>
-  </header>      
+  <div>BIBLIOFFEE</div>
+  <div style="display: flex; align-items: center; gap: 20px;">
+    <a href="keranjang.html" class="cart-icon">
+      🛒 <span class="cart-count" id="cartCount">0</span>
+    </a>
+    <a href="logout.php" class="logout-btn">Logout</a>
+  </div>
+</header>
   <main>
-    <h1>Menu Kopi</h1>
+    <h1>Daftar Kopi Favorit</h1>
     <div class="coffee-list" id="coffeeList"></div>
   </main>
   <div class="toast" id="toast">Kopi ditambahkan ke keranjang!</div>
@@ -260,9 +256,11 @@ if (!isset($_SESSION['email'])) {
     }
 
     function renderCoffees() {
-      coffeeData.forEach(coffee => {
+      coffeeData.forEach((coffee, index) => {
         const div = document.createElement('div');
         div.className = 'coffee-card';
+        div.style.animationDelay = `${index * 0.1}s`;
+
         div.innerHTML = `
           <img src="${coffee.img}" alt="${coffee.name}" />
           <div class="coffee-info">
