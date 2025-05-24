@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -19,7 +20,7 @@
       padding: 20px;
     }
     header {
-      background-color: rgba(78, 129, 105, 0.9);
+      background-color: #805c44;
       padding: 15px 30px;
       display: flex;
       justify-content: space-between;
@@ -95,7 +96,6 @@
       height: 180px;
       object-fit: cover;
       display: block;
-      pointer-events: none;
     }
     .coffee-info {
       padding: 15px 20px 60px;
@@ -155,13 +155,16 @@
 </head>
 <body>
   <header>
-    BIBLIOFFEE
+  <div>BIBLIOFFEE</div>
+  <div style="display: flex; align-items: center; gap: 20px;">
     <a href="keranjang.html" class="cart-icon">
       🛒 <span class="cart-count" id="cartCount">0</span>
     </a>
-  </header>
+    <a href="logout.php" class="logout-btn">Logout</a>
+  </div>
+</header>
   <main>
-    <h1>Menu Kopi</h1>
+    <h1>Daftar Kopi Favorit</h1>
     <div class="coffee-list" id="coffeeList"></div>
   </main>
   <div class="toast" id="toast">Kopi ditambahkan ke keranjang!</div>
