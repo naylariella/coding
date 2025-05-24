@@ -107,6 +107,7 @@ if (!isset($_SESSION['email'])) {
       height: 180px;
       object-fit: cover;
       display: block;
+      pointer-events: none;
     }
     .coffee-info {
       padding: 15px 20px;
