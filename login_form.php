@@ -81,7 +81,7 @@ if (isset($_SESSION['user_id'])) {
   </style>
 </head>
 <body>
-  <form action="proses_login.php" method="POST" autocomplete="off">
+  <form action="login.php" method="POST" autocomplete="off">
     <h2>Login Biblioffee</h2>
     <?php
       if (isset($_SESSION['error'])) {
