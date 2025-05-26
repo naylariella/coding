@@ -1,3 +1,4 @@
+
 <?php
 session_start();
 
@@ -9,6 +10,32 @@ $jumlahKopi = 6; // Sesuai jumlah data kopi
 
 // 3a. Indexed Array
 $kopiFavorit = ["Espresso", "Cappuccino", "Latte", "Americano", "Mocha", "Caramel Macchiato"];
+
+// 4. Switch Statement untuk rekomendasi
+$rekomendasi = "";
+switch ($kopiFavorit[0]) { // Ambil kopi favorit pertama
+    case "Espresso":
+        $rekomendasi = "Coba Espresso Double Shot untuk energi ekstra!";
+        break;
+    case "Cappuccino":
+        $rekomendasi = "Tambah topping coklat biar makin creamy!";
+        break;
+    case "Latte":
+        $rekomendasi = "Pas banget diminum sambil baca buku.";
+        break;
+    case "Americano":
+        $rekomendasi = "Nikmati Americano dingin untuk cuaca panas.";
+        break;
+    case "Mocha":
+        $rekomendasi = "Mocha + cookies = combo manis sempurna!";
+        break;
+    case "Caramel Macchiato":
+        $rekomendasi = "Tambahkan es untuk sensasi baru!";
+        break;
+    default:
+        $rekomendasi = "Coba semua varian untuk temukan favoritmu!";
+        break;
+}
 
 // Cek apakah user sudah login berdasarkan session 'email' (sama dengan login.php)
 if (!isset($_SESSION['email'])) {
